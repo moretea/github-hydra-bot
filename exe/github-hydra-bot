@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require_relative "../lib/github-hydra-bot"
+
+def get_env(name)
+  ENV[name] || raise("Env var '#{name}' is not set!")
+end
+
+state_dir = get_env "STATE_DIR"
+token = get_env "OAUTH_TOKEN"
+owner = get_env "GITHUB_OWNER"
+repo = get_env "GITHUB_REPO"
+
+bot = GitHubHydraBot::Bot.new(state_dir: state_dir,
+                              oauth_token: token,
+                              github_owner: owner,
+                              github_repo: repo)
+
+bot.main_loop
