@@ -37,7 +37,7 @@ module GitHubHydraBot
         http.request request
       end
 
-      if response.code != "200"
+      if response.code != "201"
         puts "Failed!"
         raise FetchException.new(url, response)
       end

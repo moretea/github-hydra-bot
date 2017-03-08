@@ -43,7 +43,7 @@ module GitHubHydraBot
       raise "unexpected notification " if notification.command.class != Command::Build
       cmd = notification.command
       url = HydraAPI.spawn(cmd.pr_id, cmd.title, cmd.sha)
-      @commenter.reply_to_comment(cmd.pr_id, notification.comment_id, "Hydra PR: #{url}")
+      @commenter.comment(cmd.pr_id, "Hydra PR: #{url}")
       @state.mark_as_already_seen!(notification.id)
     end
 
