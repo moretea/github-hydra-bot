@@ -1,18 +1,18 @@
 #!/usr/bin/env ruby
-require_relative "../lib/github-hydra-bot"
-
 def get_env(name)
   ENV[name] || raise("Env var '#{name}' is not set!")
 end
 
+$bot_name = get_env "BOT_NAME"
 access_file = get_env "ACCESS_FILE"
 token = get_env "OAUTH_TOKEN"
 owner = get_env "GITHUB_OWNER"
 repo = get_env "GITHUB_REPO"
 
+require_relative "../lib/github-hydra-bot"
+
 api = GitHubHydraBot::GitHubAPI.new(token)
 $commenter = GitHubHydraBot::Commenter.new(api, owner, repo)
 $access_checker = GitHubHydraBot::AccessChecker.new(access_file)
-
 
 Rack::Handler::Thin.run GitHubHydraBot::WebHook

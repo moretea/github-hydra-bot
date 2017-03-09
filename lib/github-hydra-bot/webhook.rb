@@ -4,8 +4,7 @@ require "json"
 require "pp"
 
 module GitHubHydraBot
-
-  REGEX = /@nixosbot build (?<sha>[a-z0-9]{40})/
+  REGEX = /@#{$bot_name} build (?<sha>[a-z0-9]{40})/
 
   class WebHook < Sinatra::Base
     configure :development do
