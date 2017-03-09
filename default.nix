@@ -1,8 +1,16 @@
 with (import <nixpkgs> {});
+let
+  env = bundlerEnv {
+    name = "github-hydra-bot-env";
+    gemfile = ./Gemfile;
+    lockfile = ./Gemfile.lock;
+    gemset = ./gemset.nix;
+  };
+in
 {
   github-hydra-bot = stdenv.mkDerivation rec {
     name = "github-hydra-bot";
-    buildInputs = [ ruby ];
+    buildInputs = [ ruby env];
     src = ./.;
     buildCommand = ''
       mkdir -p $out/bin
