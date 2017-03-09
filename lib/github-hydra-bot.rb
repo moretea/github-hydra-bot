@@ -1,9 +1,12 @@
+require "fileutils"
 require "json"
 require "net/http"
-require "fileutils"
-require "time"
 require "pp"
 require "shellwords"
+require "time"
+
+require "sinatra/base"
+require "sinatra/contrib"
 
 require_relative "github-hydra-bot/access_checker"
 require_relative "github-hydra-bot/commenter"

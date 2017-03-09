@@ -1,8 +1,3 @@
-require "sinatra/base"
-require "sinatra/contrib"
-require "json"
-require "pp"
-
 module GitHubHydraBot
   REGEX = /@#{$bot_name} build (?<sha>[a-z0-9]{40})/
 
