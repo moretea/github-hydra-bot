@@ -5,6 +5,7 @@ require "pp"
 require "shellwords"
 require "time"
 
+require "openssl"
 require "sinatra/base"
 require "sinatra/contrib"
 

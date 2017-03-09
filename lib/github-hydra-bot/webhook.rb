@@ -7,8 +7,12 @@ module GitHubHydraBot
     end
 
     post "/issue_comment" do
-      push = JSON.parse(request.body.read)
-      pp push
+      request.body.rewind
+      payload_body = request.body.read
+      verify_signature(payload_body)
+
+      push = JSON.parse(payload_body)
+
       if push["action"] == "created" && (m = REGEX.match push["comment"]["body"])
         issue_id = push["issue"]["url"].split("/").last
         title = push["issue"]["title"]
@@ -20,6 +24,13 @@ module GitHubHydraBot
         else
           $commenter.comment(issue_id, "Sorry @#{gh_user_name}, you are not allowed to do this!")
         end
+      end
+    end
+
+    def verify_signature(payload_body)
+      signature = 'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), $webhook_secret, payload_body)
+      if !Rack::Utils.secure_compare(signature, request.env['HTTP_X_HUB_SIGNATURE'])
+        return halt 500, "Signatures didn't match!"
       end
     end
   end

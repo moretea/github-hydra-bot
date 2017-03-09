@@ -8,6 +8,7 @@ access_file = get_env "ACCESS_FILE"
 token = get_env "OAUTH_TOKEN"
 owner = get_env "GITHUB_OWNER"
 repo = get_env "GITHUB_REPO"
+$webhook_secret = get_env "WEBHOOK_SECRET"
 
 require_relative "../lib/github-hydra-bot"
 
